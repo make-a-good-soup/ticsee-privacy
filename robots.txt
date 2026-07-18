@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://make-a-good-soup.github.io/ticsee-privacy/sitemap.xml
+Sitemap: https://ticsee.app/sitemap.xml
