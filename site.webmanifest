@@ -1,0 +1,17 @@
+{
+  "name": "Ticsee",
+  "short_name": "Ticsee",
+  "description": "讓時間，被你看見。",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FAF7F2",
+  "theme_color": "#F97316",
+  "icons": [
+    {
+      "src": "assets/app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
