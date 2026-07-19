@@ -47,6 +47,7 @@ Ticsee 官網託管於 GitHub Pages，僅兩個頁面（index.html 行銷頁、p
 - 行為（隱私頁）：訪客在政策 hero 下方先看到至少 3 張摘要卡；條文為 6 節；在 375px 寬視口可見橫向章節導覽並可點擊跳至各節；policy-article 內文字數較現行版本減少 35% 以上；Play 政策要求的揭露項目（資料類型、用途、備份與分享、權限、保留刪除、兒童隱私、聯絡方式）在頁面上皆可找到對應敘述。
 - 行為（行銷頁）：頁面存在三步驟上手區與 FAQ 區；FAQ 至少 5 題且附 FAQPage JSON-LD；「倒數日」「紀念日」「生日提醒」三詞各至少出現一次於可見文案；三個指向 Google Play 的 a 連結 querystring 皆含 utm_source=ticsee-site；圖庫三張截圖互不重複且不與 hero 重複。
 - 介面／資料形狀：FAQPage JSON-LD 為合法 schema.org 結構（mainEntity 為 Question／acceptedAnswer 陣列）；既有 MobileApplication JSON-LD 保持有效；HTML 結構維持無 JS 依賴（details 摺疊為原生行為）。
+- 響應式媒體：所有 720×1280 App 行銷圖維持 9:16 比例、不做非等比縮放；hero 與 life-calendar 圖完整保留素材構圖；widgets 圖只允許卡片邊界內的垂直裁切。680px 以下圖庫改為可鍵盤聚焦的橫向 snap rail，頁面本身不得產生水平 overflow。驗收寬度為 360／390／768／1024／1280／1440px。
 - 排印：styles.css 中大標題規則的 letter-spacing 為 -0.015em、h1 行高 1.05，全檔無 font-weight 950；以 1280px 寬截圖目視確認政策頁 h1「隱私權政策」無字形貼擠。
 - 效能：assets/screens 目錄合計小於 500KB；兩頁 HTML 中除 app-icon.png 與 ticsee-feature.png 外無 .png 引用。
 - 網域（於使用者完成註冊與 DNS 後驗收）：以 curl -I 請求舊網址 https://make-a-good-soup.github.io/ticsee-privacy/privacy.html 得到 301 且 Location 為 https://ticsee.app/privacy.html；canonical、og:url、sitemap、robots 中所有絕對網址的 host 均為 ticsee.app；https://ticsee.app 以 HTTPS 正常回應兩頁。

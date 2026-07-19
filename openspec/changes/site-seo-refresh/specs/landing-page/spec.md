@@ -67,3 +67,17 @@ The screenshot gallery SHALL display three pairwise-distinct images, none of whi
 
 - **WHEN** the hero image and the three gallery images are compared by source file
 - **THEN** all four source files are distinct
+
+### Requirement: Responsive marketing media preserves source composition
+
+The landing page SHALL preserve the 9:16 source aspect ratio of every App marketing image without non-uniform scaling. Hero and life-calendar media SHALL use contain-style composition so their embedded headline and device frame are not unintentionally cropped. The widgets feature MAY crop vertically inside its orange card, but its image box SHALL remain 9:16. At 680px and below, the gallery SHALL become a horizontally scrollable, keyboard-focusable rail with a visible swipe hint and SHALL NOT create document-level horizontal overflow.
+
+#### Scenario: Marketing images remain undistorted across device widths
+
+- **WHEN** the page is rendered at 360, 390, 768, 1024, 1280, and 1440 CSS pixels wide
+- **THEN** gallery and widgets media retain a 9:16 rendered aspect ratio, hero and life-calendar media use contain composition, and the document has no horizontal overflow
+
+#### Scenario: Mobile gallery exposes more content without breaking the page
+
+- **WHEN** a visitor views the gallery at 680 CSS pixels wide or below
+- **THEN** the first 9:16 card and part of the next card are available in a snap-scrolling rail, a swipe hint is visible, and keyboard focus has a visible indicator

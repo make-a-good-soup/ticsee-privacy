@@ -50,3 +50,26 @@
 4. card-screen（widgets 圖）在 >680px 貼死卡片頂邊 → 改頂部錨定 top: clamp(170px, 18vw, 230px)，680px 以下維持原底部錨定。
 
 驗證：四寬度 headless 全頁截圖通過；教訓——初版走查漏掉 680–1280 中間寬度帶。
+
+## 響應式圖片第二輪修正（2026-07-19）
+
+使用者再次回報一頁式首頁圖片全面跑版。實際瀏覽器量測確認，第一輪修正只處理了中寬版空洞，沒有建立共用圖片比例契約：
+
+- 1280px 圖庫圖片被排成 380×1280（正確 9:16 應約 380×676）；375px 則為 285×1280（正確應約 285×507）。根因是全域 img 只有 max-width: 100%，HTML height 屬性仍固定為 1280，縮寬後高度沒有同步。
+- life-calendar.webp 是完整 9:16 行銷素材，但 phone-stage 以橫向容器搭配 object-fit: cover，素材標題與手機畫面在不同寬度被裁掉。
+- widgets 圖同樣因固定 1280px 高度與絕對定位疊加，導致 desktop／mobile 的裁切位置不可預測。
+
+修正策略：全域圖片採 height: auto；gallery 與 widgets 的 image box 明確維持 9:16；hero 與 life-calendar 使用 contain 保留完整構圖；widgets 只在橘色 feature card 內做可控的垂直 crop。行動圖庫保留下一張 peek，新增滑動提示、scroll snap、overscroll containment 與鍵盤 focus ring。
+
+驗證矩陣（in-app browser 實測）：
+
+| viewport | document overflow | gallery 比例 | widgets 比例 | hero / life fit | 最小 CTA 高度 |
+| --- | ---: | ---: | ---: | --- | ---: |
+| 360 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+| 390 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+| 768 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+| 1024 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+| 1280 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+| 1440 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
+
+共用 styles 回歸檢查：privacy.html 於 375／1280px document overflow 均為 0；行動章節導覽仍為可橫向捲動 chip 列，四張摘要卡維持 2×2。

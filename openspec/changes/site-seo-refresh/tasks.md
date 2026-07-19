@@ -30,3 +30,9 @@
 
 - [x] 6.1 本地以 python3 http.server 走查兩頁桌面 1280px 與行動 375px 版面（hero、摘要卡、章節導覽、FAQ、三步驟、footer），對照 design.md Implementation Contract 逐項確認。驗證：走查截圖存檔並在 change 筆記勾選對應契約條目。
 - [x] 6.2 兩頁 HTML 通過 W3C validator 檢查無 error 級問題。驗證：validator 輸出無 error。
+
+## 7. 響應式圖片與跨裝置體驗補強
+
+- [x] 7.1 修正共用圖片 sizing contract：預設 height auto，gallery 與 widgets 圖維持 9:16，hero／life-calendar 改為 contain 構圖，移除造成非等比拉伸與意外裁切的 cover／固定高度組合（spec: Responsive marketing media preserves source composition）。驗證：360／390／768／1024／1280／1440px 六寬度量測比例與 object-fit。
+- [x] 7.2 680px 以下圖庫改為保留下一張預覽的橫向 snap rail，補滑動提示、鍵盤焦點與 overscroll containment（spec: Mobile gallery exposes more content without breaking the page）。驗證：360／390px rail scrollWidth > clientWidth、頁面 document overflow = 0、最小 CTA 高度 ≥44px。
+- [x] 7.3 重新走查首頁 hero、Life Calendar、feature cards、widgets、gallery、steps 與 CTA，並確認共用 styles 對 privacy.html 無回歸。驗證：首頁六寬度與政策頁 375／1280px document overflow 均為 0。
