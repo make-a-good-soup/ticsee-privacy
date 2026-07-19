@@ -39,3 +39,14 @@
 - [x] W3C Nu validator（API 實測）：index.html errors=0、warnings=0；privacy.html errors=0（僅 2 筆 info 級 heading 建議）。附帶修正三處 div 上 aria-label 缺 role 的問題（其中兩處為改版前既有）。
 
 補充記錄：headless Chrome 有 500px 最小視窗寬，--window-size=375 時版面以 500px 排版、截圖硬裁 375px，會產生「假裁切」；實際 375px 視口（Browser 面板實測）排版正常。走查過程中順手為 .policy-layout 行動版軌道加上 minmax(0, 1fr) 與 .policy-nav min-width: 0 作為 chip 列 min-content 傳播的防禦（無行為變化）。
+
+## 上線後修正（2026-07-19）
+
+使用者回報首頁 LIFE CALENDAR／YOUR NEXT MOMENT／MADE TO SHARE 圖片跑版。以 820／1000／1280／500 四寬度重現，確認四個病灶並修正：
+
+1. MADE TO SHARE 標題在 ≥950px 爆行出現孤字（字距放寬的迴歸）→ 標題比照全站慣例加 br 斷行。
+2. phone-stage 絕對定位裁切在中間寬度留空或貼頂 → 改 object-fit: cover + object-position: center top，素材完整填滿舞台。
+3. TIME FLOW／YOUR NEXT MOMENT 在 680–900px 堆疊時 min-height 560 造成大面積空洞 → 該區間改 min-height: 0 + padding-bottom 保留底部裝飾空間。
+4. card-screen（widgets 圖）在 >680px 貼死卡片頂邊 → 改頂部錨定 top: clamp(170px, 18vw, 230px)，680px 以下維持原底部錨定。
+
+驗證：四寬度 headless 全頁截圖通過；教訓——初版走查漏掉 680–1280 中間寬度帶。
