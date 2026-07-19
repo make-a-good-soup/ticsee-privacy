@@ -73,3 +73,14 @@
 | 1440 | 0 | 0.5625 | 0.5625 | contain / contain | 44px |
 
 共用 styles 回歸檢查：privacy.html 於 375／1280px document overflow 均為 0；行動章節導覽仍為可橫向捲動 chip 列，四張摘要卡維持 2×2。
+
+## 核心內容可見性第三輪修正（2026-07-19）
+
+使用者以實際頁面截圖指出：比例數值雖已正確，Life Calendar 日曆格與 widgets 核心內容仍遭 wrapper 裁切，桌面 MADE TO SHARE 圖過大，TIME FLOW 也未忠於 Ticsee V2。這次不再只驗 `width / height = 0.5625`，而增加「來源上下界完整可見」與「核心功能內容進入畫面」兩個驗收層次。
+
+- Life Calendar：移除固定 660px 舞台與 absolute image，圖片以 max-width 420px／height auto 決定容器高度；680px 以下先顯示產品圖再顯示 52 週說明卡，375px 首屏即可看到日曆格。
+- TIME FLOW：讀取 V2 `TimeFlowSection.kt`、`TimeFlowProgressRing.kt` 與 `ProgressRing.kt`，按原始 token 與 -210° 起點／240° sweep／round cap 幾何，以三張 1:1 inline-SVG 卡重建。
+- ON YOUR HOME SCREEN：由絕對定位＋負 bottom 改為兩欄（行動版單欄）grid，完整 9:16 商店素材自然撐高卡片，四種 widget 均保留。
+- MADE TO SHARE：桌面三張圖各上限 320px，height auto；900px 以下切換 snap rail，避免平板硬擠與桌面海報化。
+
+in-app browser 實測 1280×900 與 375×812：四區皆無非等比拉伸；桌面與行動 TIME FLOW 皆維持三卡單列；日曆格與四種 widget 可見；行動圖庫可見下一張 peek。第三輪修正未改動 privacy.html，後續以共用 CSS overflow 與 W3C 驗證補做最終回歸。

@@ -13,7 +13,7 @@ Ticsee 官網託管於 GitHub Pages，僅兩個頁面（index.html 行銷頁、p
 
 **Non-Goals:**
 
-- 不做視覺 redesign：色彩、版型、卡片系統、英文 kicker 風格全部保留
+- 不做全站視覺 redesign：色彩、版型、卡片系統、英文 kicker 風格全部保留；但產品元件展示必須忠於 Ticsee V2 的既有設計
 - 不將 h1／h2 改寫為關鍵字標題（title 與 meta 已承載關鍵字，缺口由新增區塊補）
 - 不刪除 Google Play User Data 政策要求的任何揭露項目——只縮句、合併、粗化粒度
 - 不假造社會證明（評分、下載數）；待 Play 有真實數據後另案加入
@@ -38,6 +38,12 @@ Ticsee 官網託管於 GitHub Pages，僅兩個頁面（index.html 行銷頁、p
 
 五張 assets/screens 下的 PNG（合計約 1.3MB）以 cwebp 品質 82 轉為同名 WebP，HTML 引用同步改為 .webp，img 的 width／height 屬性維持 720×1280 不變；轉檔後刪除舊 PNG。app-icon.png 與 ticsee-feature.png（og:image 用）維持 PNG 以確保社群平台預覽相容。不做 srcset：素材只有單一 720px 寬版本，顯示尺寸至多約 450px，增益有限。
 
+### 產品畫面完整可見與 Time Flow V2 對齊
+
+第二輪雖建立 9:16 圖片框，但仍把 widgets 視為可裁切裝飾，且桌面圖庫把圖片放大到超過行銷閱讀所需；幾何比例正確不等於核心內容可見。本輪改為「素材本身決定高度」：Life Calendar、widgets 與 MADE TO SHARE 圖片皆使用自然高度，禁止固定高度 wrapper 與 absolute crop；桌面圖庫每張上限 320px，避免 720×1280 商店素材被放大成巨幅海報。680px 以下 Life Calendar 先顯示產品畫面，再顯示 52 週說明卡，讓行動訪客在第一個 showcase 視窗內直接看到日曆格。圖庫橫滑 rail 提前於 900px 啟用，讓平板也避免三張窄卡硬擠。
+
+TIME FLOW 不再使用網站自創的深色卡＋完整圓環，而直接映射 Ticsee V2 `TimeFlowSection.kt` 與共用 `ProgressRing.kt`：WEEKLY／MONTHLY／YEARLY 三張等寬方卡、#F97316／#6366F1／#10B981 accent、對應淺色 container、環尺寸為卡片 82%，共用弧形起點 -210°、總掃角 240°、12% stroke 與 round cap。網站以 inline SVG 保留相同幾何，文字留在 HTML 以維持可存取名稱。
+
 ### 網域遷移與絕對網址切換
 
 目標配置：apex 網域 ticsee.app 綁定 GitHub Pages（DNS 需四筆 A 記錄 185.199.108.153、185.199.109.153、185.199.110.153、185.199.111.153，www 子網域以 CNAME 指向 make-a-good-soup.github.io），儲存庫根目錄新增內容為 ticsee.app 的 CNAME 檔。全站絕對網址切換為 https://ticsee.app/：index.html 的 canonical、og:url、og:image、twitter:image、JSON-LD 的 image 與 screenshot；privacy.html 的 canonical、og:url、og:image；sitemap.xml 兩筆 loc；robots.txt 的 Sitemap 行。選 apex 而非沿用先前的 privacy 子網域：本站主體已是產品首頁，品牌搜尋應落在主網域，政策頁自然成為 ticsee.app/privacy.html。此決策整批任務有硬前置：使用者完成網域註冊與 DNS 設定前不得合併 CNAME 與網址切換（CNAME 先上而 DNS 未生效會使站點離線）。
@@ -47,7 +53,8 @@ Ticsee 官網託管於 GitHub Pages，僅兩個頁面（index.html 行銷頁、p
 - 行為（隱私頁）：訪客在政策 hero 下方先看到至少 3 張摘要卡；條文為 6 節；在 375px 寬視口可見橫向章節導覽並可點擊跳至各節；policy-article 內文字數較現行版本減少 35% 以上；Play 政策要求的揭露項目（資料類型、用途、備份與分享、權限、保留刪除、兒童隱私、聯絡方式）在頁面上皆可找到對應敘述。
 - 行為（行銷頁）：頁面存在三步驟上手區與 FAQ 區；FAQ 至少 5 題且附 FAQPage JSON-LD；「倒數日」「紀念日」「生日提醒」三詞各至少出現一次於可見文案；三個指向 Google Play 的 a 連結 querystring 皆含 utm_source=ticsee-site；圖庫三張截圖互不重複且不與 hero 重複。
 - 介面／資料形狀：FAQPage JSON-LD 為合法 schema.org 結構（mainEntity 為 Question／acceptedAnswer 陣列）；既有 MobileApplication JSON-LD 保持有效；HTML 結構維持無 JS 依賴（details 摺疊為原生行為）。
-- 響應式媒體：所有 720×1280 App 行銷圖維持 9:16 比例、不做非等比縮放；hero 與 life-calendar 圖完整保留素材構圖；widgets 圖只允許卡片邊界內的垂直裁切。680px 以下圖庫改為可鍵盤聚焦的橫向 snap rail，頁面本身不得產生水平 overflow。驗收寬度為 360／390／768／1024／1280／1440px。
+- 響應式媒體：所有 720×1280 App 行銷圖維持 9:16 比例、不做非等比縮放；hero、life-calendar、widgets 與 gallery 圖皆完整保留素材構圖，不允許固定高度或絕對定位裁掉上下內容；life-calendar 必須看得到日曆格，widgets 必須看得到素材中的四種 widget。900px 以下圖庫改為可鍵盤聚焦的橫向 snap rail，頁面本身不得產生水平 overflow。驗收寬度為 360／390／768／1024／1280／1440px。
+- 產品視覺：Time Flow 依 Ticsee V2 顯示三張 1:1 淺色卡、WEEKLY／MONTHLY／YEARLY 與橘／靛／綠 240° 圓角弧；375／768／1280px 均維持單列且文字不裁切。680px 以下 Life Calendar 的視覺順序為完整產品圖先於 52 週說明卡。
 - 排印：styles.css 中大標題規則的 letter-spacing 為 -0.015em、h1 行高 1.05，全檔無 font-weight 950；以 1280px 寬截圖目視確認政策頁 h1「隱私權政策」無字形貼擠。
 - 效能：assets/screens 目錄合計小於 500KB；兩頁 HTML 中除 app-icon.png 與 ticsee-feature.png 外無 .png 引用。
 - 網域（於使用者完成註冊與 DNS 後驗收）：以 curl -I 請求舊網址 https://make-a-good-soup.github.io/ticsee-privacy/privacy.html 得到 301 且 Location 為 https://ticsee.app/privacy.html；canonical、og:url、sitemap、robots 中所有絕對網址的 host 均為 ticsee.app；https://ticsee.app 以 HTTPS 正常回應兩頁。

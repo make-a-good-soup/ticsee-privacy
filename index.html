@@ -100,7 +100,7 @@
         <h2>一生，有很多格。<br>今天是其中一格。</h2>
         <p>把走過的每一週排成一張人生日曆。不是倒數生命，而是停一下，看見自己正在這裡。</p>
       </div>
-      <div class="feature-showcase">
+      <div class="feature-showcase" id="life-calendar-preview">
         <div class="showcase-copy">
           <div class="metric" role="img" aria-label="一年 52 週">
             <strong>52</strong>
@@ -118,15 +118,39 @@
       </div>
     </section>
 
-    <section class="feature-grid wrap" aria-label="Ticsee 主要功能">
-      <article class="feature-card card-dark">
+    <section class="feature-grid wrap" id="feature-cards" aria-label="Ticsee 主要功能">
+      <article class="feature-card card-time-flow" id="time-flow">
         <p class="kicker">TIME FLOW</p>
         <h2>現在的時間，<br>一眼就懂。</h2>
-        <p>今天、本週、本月、今年的進度，同時放在首頁。清楚，但不給壓力。</p>
-        <div class="progress-rings" aria-hidden="true">
-          <span style="--progress: 72%; --ring: #F97316"><b>DAY</b></span>
-          <span style="--progress: 46%; --ring: #6366F1"><b>WEEK</b></span>
-          <span style="--progress: 37%; --ring: #10B981"><b>YEAR</b></span>
+        <p>本週、本月、今年的進度，同時放在首頁。清楚，但不給壓力。</p>
+        <div class="time-flow-cards" role="img" aria-label="本週進度 38%，本月進度 44%，今年進度 53%">
+          <div class="time-flow-tile" style="--accent: #F97316; --track: #FEDDC7; --tile: #FFF0E6; --label: #9A3412" aria-hidden="true">
+            <span class="time-flow-ring">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-track" cx="50" cy="50" r="40" />
+                <circle class="ring-value" cx="50" cy="50" r="40" style="--arc: 63.670" />
+              </svg>
+              <span><strong>38%</strong><small>WEEKLY</small></span>
+            </span>
+          </div>
+          <div class="time-flow-tile" style="--accent: #6366F1; --track: #D9DDFD; --tile: #EEF2FF; --label: #3730A3" aria-hidden="true">
+            <span class="time-flow-ring">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-track" cx="50" cy="50" r="40" />
+                <circle class="ring-value" cx="50" cy="50" r="40" style="--arc: 73.723" />
+              </svg>
+              <span><strong>44%</strong><small>MONTHLY</small></span>
+            </span>
+          </div>
+          <div class="time-flow-tile" style="--accent: #10B981; --track: #D6F3E1; --tile: #ECFDF5; --label: #065F46" aria-hidden="true">
+            <span class="time-flow-ring">
+              <svg viewBox="0 0 100 100" aria-hidden="true">
+                <circle class="ring-track" cx="50" cy="50" r="40" />
+                <circle class="ring-value" cx="50" cy="50" r="40" style="--arc: 88.803" />
+              </svg>
+              <span><strong>53%</strong><small>YEARLY</small></span>
+            </span>
+          </div>
         </div>
       </article>
 
@@ -140,11 +164,15 @@
         </div>
       </article>
 
-      <article class="feature-card card-orange">
-        <p class="kicker">ON YOUR HOME SCREEN</p>
-        <h2>不用打開 App，<br>也能看見時間。</h2>
-        <p>四款桌面小工具，把人生進度、時間流動、事件倒數放在每天都會看見的地方。</p>
-        <img class="card-screen" src="assets/screens/widgets.webp" alt="Ticsee 四款 Android 桌面小工具" width="720" height="1280" loading="lazy">
+      <article class="feature-card card-orange" id="home-screen-widgets">
+        <div class="card-orange-copy">
+          <p class="kicker">ON YOUR HOME SCREEN</p>
+          <h2>不用打開 App，<br>也能看見時間。</h2>
+          <p>四款桌面小工具，把人生進度、時間流動、事件倒數放在每天都會看見的地方。</p>
+        </div>
+        <figure class="widget-media">
+          <img class="card-screen" src="assets/screens/widgets.webp" alt="Ticsee 四款 Android 桌面小工具完整畫面" width="720" height="1280" loading="lazy">
+        </figure>
       </article>
     </section>
 

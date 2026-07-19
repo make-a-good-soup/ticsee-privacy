@@ -36,3 +36,10 @@
 - [x] 7.1 修正共用圖片 sizing contract：預設 height auto，gallery 與 widgets 圖維持 9:16，hero／life-calendar 改為 contain 構圖，移除造成非等比拉伸與意外裁切的 cover／固定高度組合（spec: Responsive marketing media preserves source composition）。驗證：360／390／768／1024／1280／1440px 六寬度量測比例與 object-fit。
 - [x] 7.2 680px 以下圖庫改為保留下一張預覽的橫向 snap rail，補滑動提示、鍵盤焦點與 overscroll containment（spec: Mobile gallery exposes more content without breaking the page）。驗證：360／390px rail scrollWidth > clientWidth、頁面 document overflow = 0、最小 CTA 高度 ≥44px。
 - [x] 7.3 重新走查首頁 hero、Life Calendar、feature cards、widgets、gallery、steps 與 CTA，並確認共用 styles 對 privacy.html 無回歸。驗證：首頁六寬度與政策頁 375／1280px document overflow 均為 0。
+
+## 8. 核心內容可見性與 Ticsee V2 視覺對齊
+
+- [x] 8.1 Life Calendar 取消固定高度裁切，讓 9:16 素材以自然高度完整呈現；680px 以下將產品圖排在 52 週說明卡之前（spec: Responsive marketing media preserves source composition）。驗證：375／1280px 截圖可見日曆格，圖片上下界未被 wrapper 截斷。
+- [x] 8.2 TIME FLOW 依 Ticsee V2 `TimeFlowSection`／`ProgressRing` 重做為三張 1:1 淺色卡與 240° round-cap arcs，沿用橘／靛／綠 accent 與 WEEKLY／MONTHLY／YEARLY 標籤（spec: Time Flow mirrors the Ticsee V2 component）。驗證：375／1280px 目視比對元件排列、顏色、弧形幾何與文字無裁切。
+- [x] 8.3 ON YOUR HOME SCREEN 改為文案與完整 9:16 素材的響應式 grid，不使用 absolute positioning 或負 bottom crop（spec: Responsive marketing media preserves source composition）。驗證：375／1280px 可見素材中的事件、人生進度、時間與 Time Flow 四種 widget，rendered ratio = 0.5625。
+- [x] 8.4 MADE TO SHARE 桌面圖片上限 320px 並使用自然高度；900px 以下啟用橫向 rail（spec: Responsive marketing media preserves source composition）。驗證：375px 可見下一張 peek，1280px 三張等寬且無拉長，兩者皆維持 9:16。

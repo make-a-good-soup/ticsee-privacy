@@ -70,14 +70,28 @@ The screenshot gallery SHALL display three pairwise-distinct images, none of whi
 
 ### Requirement: Responsive marketing media preserves source composition
 
-The landing page SHALL preserve the 9:16 source aspect ratio of every App marketing image without non-uniform scaling. Hero and life-calendar media SHALL use contain-style composition so their embedded headline and device frame are not unintentionally cropped. The widgets feature MAY crop vertically inside its orange card, but its image box SHALL remain 9:16. At 680px and below, the gallery SHALL become a horizontally scrollable, keyboard-focusable rail with a visible swipe hint and SHALL NOT create document-level horizontal overflow.
+The landing page SHALL preserve the 9:16 source aspect ratio of every App marketing image without non-uniform scaling. Hero, life-calendar, gallery, and widgets media SHALL render at natural height with contain-style composition; the source image's top and bottom edges SHALL NOT be clipped by a fixed-height or absolutely positioned wrapper. The life-calendar preview SHALL visibly include the calendar grid, and the widgets preview SHALL visibly include all four widget designs contained in the source asset. On desktop, each gallery image SHALL be no wider than 320 CSS pixels. At 900px and below, the gallery SHALL become a horizontally scrollable, keyboard-focusable rail with a visible swipe hint and SHALL NOT create document-level horizontal overflow.
 
 #### Scenario: Marketing images remain undistorted across device widths
 
 - **WHEN** the page is rendered at 360, 390, 768, 1024, 1280, and 1440 CSS pixels wide
-- **THEN** gallery and widgets media retain a 9:16 rendered aspect ratio, hero and life-calendar media use contain composition, and the document has no horizontal overflow
+- **THEN** gallery, life-calendar, and widgets media retain a 9:16 rendered aspect ratio with their full source bounds visible, the life-calendar grid and all four widget designs are present in the rendered image, and the document has no horizontal overflow
 
 #### Scenario: Mobile gallery exposes more content without breaking the page
 
-- **WHEN** a visitor views the gallery at 680 CSS pixels wide or below
+- **WHEN** a visitor views the gallery at 900 CSS pixels wide or below
 - **THEN** the first 9:16 card and part of the next card are available in a snap-scrolling rail, a swipe hint is visible, and keyboard focus has a visible indicator
+
+#### Scenario: Mobile visitors see the calendar before supporting metrics
+
+- **WHEN** a visitor views the Life Calendar showcase at 680 CSS pixels wide or below
+- **THEN** the complete 9:16 Life Calendar preview appears before the 52-weeks explanatory card in visual order, with the calendar grid visible inside the first preview
+
+### Requirement: Time Flow mirrors the Ticsee V2 component
+
+The Time Flow feature SHALL mirror the light-theme Ticsee V2 `TimeFlowSection`: three equal square cards for WEEKLY, MONTHLY, and YEARLY; orange, indigo, and emerald accents respectively; matching tinted card backgrounds; centered percentage and label; and a rounded 240-degree progress arc beginning at -210 degrees. The section SHALL remain legible as a three-card row at desktop, tablet, and mobile widths.
+
+#### Scenario: Time Flow visual contract remains faithful across widths
+
+- **WHEN** the page is rendered at 375, 768, and 1280 CSS pixels wide
+- **THEN** the Time Flow card contains three square tinted tiles in one row, each uses a rounded 240-degree arc and the WEEKLY/MONTHLY/YEARLY labels, and none of the percentage or label text is clipped
